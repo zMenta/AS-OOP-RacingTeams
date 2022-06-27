@@ -1,4 +1,6 @@
 using AS_OOP_RacingTeams.Data.Context;
+using AS_OOP_RacingTeams.Data.Repositories;
+using AS_OOP_RacingTeams.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +13,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DataContext>(
-    x => x.UseSqlite()
+    x => x.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
     // x => x.UseNpgsql() // Postgress
 );
+
+
+// Repositories 
+
+builder.Services.AddScoped<IJobRepository, JobRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
 var app = builder.Build();
 
