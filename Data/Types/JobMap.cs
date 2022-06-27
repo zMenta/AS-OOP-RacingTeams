@@ -8,7 +8,18 @@ namespace AS_OOP_RacingTeams.Data.Types
     {
         public void Configure(EntityTypeBuilder<Job> builder)
         {
-            throw new NotImplementedException();
+            builder.ToTable("jobs");
+
+            builder.Property(i => i.Id)
+                .HasColumnName("id");
+
+            builder.HasKey(i => i.Id);
+
+            builder.Property(i => i.Name)
+                .HasColumnName("name")
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(40)
+                .IsRequired();
         }
     }
 }
