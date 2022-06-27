@@ -13,8 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DataContext>(
-    x => x.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
-    // x => x.UseNpgsql() // Postgress
+    // x => x.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")) // SqLite
+    x => x.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")) // Postgress
 );
 
 
