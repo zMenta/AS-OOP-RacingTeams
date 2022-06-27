@@ -11,7 +11,7 @@ namespace AS_OOP_RacingTeams.Data.Context
 
         }
 
-        public DbSet<Job> DbSetJob { get; set; }
+        public DbSet<Job> Jobs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,6 +1,7 @@
 using AS_OOP_RacingTeams.Data.Context;
 using AS_OOP_RacingTeams.Domain.Entities;
 using AS_OOP_RacingTeams.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace AS_OOP_RacingTeams.Data.Repositories
 {
@@ -14,29 +15,39 @@ namespace AS_OOP_RacingTeams.Data.Repositories
             this._Context = context;
         }
 
-        public void Delete(Job entity)
+        public bool Delete(int entityId)
         {
-            throw new NotImplementedException();
+            var job = _Context.Jobs.FirstOrDefault(i => i.Id == entityId);
+
+            if (job == null)
+            {
+                return false;
+            }
+            else
+            {
+                _Context.Jobs.Remove(job);
+                return true;
+            }
         }
 
-        public Task<IList<Job>> GetAllAsync()
+        public async Task<IList<Job>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _Context.Jobs.ToListAsync();
         }
 
-        public Task<Job> GetByIdAsync(int id)
+        public async Task<Job> GetByIdAsync(int entityId)
         {
-            throw new NotImplementedException();
+            return await _Context.Jobs.FirstOrDefaultAsync(i => i.Id == entityId);
         }
 
         public void Save(Job entity)
         {
-            throw new NotImplementedException();
+            _Context.Jobs.Add(entity);
         }
 
         public void Update(Job entity)
         {
-            throw new NotImplementedException();
+            _Context.Entry(entity).State = EntityState.Modified;
         }
     }
 }
