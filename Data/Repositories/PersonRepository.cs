@@ -45,12 +45,12 @@ namespace AS_OOP_RacingTeams.Data.Repositories
 
         public void Update(Person entity)
         {
-            throw new NotImplementedException();
+            _Context.Entry(entity).State = EntityState.Modified;
         }
 
-        Task<Person> IBaseRepository<Person>.GetByIdAsync(int entityId)
+        public async Task<Person> GetByIdAsync(int entityId)
         {
-            throw new NotImplementedException();
+            return await _Context.Persons.FirstOrDefaultAsync(i => i.Id == entityId);
         }
     }
 }
