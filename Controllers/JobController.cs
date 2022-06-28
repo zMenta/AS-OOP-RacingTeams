@@ -32,7 +32,7 @@ namespace AS_OOP_RacingTeams.Controllers
             Job job = await _repository.GetByIdAsync(id);
             if (job == null)
             {
-                return BadRequest("Job Not Found");
+                return NotFound();
             }
             return Ok(job);
         }
@@ -50,6 +50,22 @@ namespace AS_OOP_RacingTeams.Controllers
             await _unitOfWork.CommitAsync();
 
             return Ok(job);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<Job>> DeleteAsync([FromRoute] int id)
+        {
+            bool deleted = _repository.Delete(id);
+
+            if (deleted == false)
+            {
+                return NotFound();
+            }
+
+            await _unitOfWork.CommitAsync();
+            return Ok("Deleted Job Id: " + id);
+
+
         }
 
     }
