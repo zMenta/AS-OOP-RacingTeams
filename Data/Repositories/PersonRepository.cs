@@ -39,7 +39,7 @@ namespace AS_OOP_RacingTeams.Data.Repositories
 
         public void Save(Person entity)
         {
-            throw new NotImplementedException();
+            _Context.Persons.Add(entity);
         }
 
 
