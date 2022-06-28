@@ -1,5 +1,6 @@
 using AS_OOP_RacingTeams.Domain.Entities;
 using AS_OOP_RacingTeams.Domain.Interfaces;
+using AS_OOP_RacingTeams.Dto;
 using AS_OOP_RacingTeams.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,9 +19,12 @@ namespace AS_OOP_RacingTeams.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Person>>> GetAllAsync()
+        public async Task<ActionResult<List<PersonDto>>> GetAllAsync()
         {
-            IList<Person> personList = await _repository.GetAllAsync();
+            var personList = await _repository.GetAllAsync();
+            
+
+
             return Ok(personList);
         }
 

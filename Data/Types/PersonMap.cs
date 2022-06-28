@@ -31,6 +31,9 @@ namespace AS_OOP_RacingTeams.Data.Types
                 .HasColumnType("integer")
                 .IsRequired();
 
+            builder.HasOne(i => i.Job)
+            .WithOne(i => i.Person)
+            .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
