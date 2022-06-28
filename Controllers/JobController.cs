@@ -8,7 +8,7 @@ namespace AS_OOP_RacingTeams.Controllers
     [Route("api/job")]
     public class JobController : ControllerBase
     {
-
+        
         private readonly IJobRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
 
