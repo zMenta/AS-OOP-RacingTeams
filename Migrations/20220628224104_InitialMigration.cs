@@ -5,29 +5,21 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AS_OOP_RacingTeams.Migrations
 {
-    public partial class Entities : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "persons",
+                name: "jobs",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name = table.Column<string>(type: "VARCHAR", maxLength: 40, nullable: false),
-                    birth_year = table.Column<int>(type: "integer", nullable: false),
-                    job_id = table.Column<int>(type: "integer", nullable: false)
+                    name = table.Column<string>(type: "VARCHAR", maxLength: 40, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_persons", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_persons_jobs_job_id",
-                        column: x => x.job_id,
-                        principalTable: "jobs",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_jobs", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,27 +50,24 @@ namespace AS_OOP_RacingTeams.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PersonTeam",
+                name: "persons",
                 columns: table => new
                 {
-                    PersonsId = table.Column<int>(type: "integer", nullable: false),
-                    TeamsId = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "VARCHAR", maxLength: 40, nullable: false),
+                    birth_year = table.Column<int>(type: "integer", nullable: false),
+                    job_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PersonTeam", x => new { x.PersonsId, x.TeamsId });
+                    table.PrimaryKey("PK_persons", x => x.id);
                     table.ForeignKey(
-                        name: "FK_PersonTeam_persons_PersonsId",
-                        column: x => x.PersonsId,
-                        principalTable: "persons",
+                        name: "FK_persons_jobs_job_id",
+                        column: x => x.job_id,
+                        principalTable: "jobs",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PersonTeam_Team_TeamsId",
-                        column: x => x.TeamsId,
-                        principalTable: "Team",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,6 +88,30 @@ namespace AS_OOP_RacingTeams.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SponsorShipTeam_Team_TeamsId",
+                        column: x => x.TeamsId,
+                        principalTable: "Team",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonTeam",
+                columns: table => new
+                {
+                    PersonsId = table.Column<int>(type: "integer", nullable: false),
+                    TeamsId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonTeam", x => new { x.PersonsId, x.TeamsId });
+                    table.ForeignKey(
+                        name: "FK_PersonTeam_persons_PersonsId",
+                        column: x => x.PersonsId,
+                        principalTable: "persons",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PersonTeam_Team_TeamsId",
                         column: x => x.TeamsId,
                         principalTable: "Team",
                         principalColumn: "Id",
@@ -137,6 +150,9 @@ namespace AS_OOP_RacingTeams.Migrations
 
             migrationBuilder.DropTable(
                 name: "Team");
+
+            migrationBuilder.DropTable(
+                name: "jobs");
         }
     }
 }

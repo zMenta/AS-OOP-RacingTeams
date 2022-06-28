@@ -32,7 +32,7 @@ namespace AS_OOP_RacingTeams.Data.Types
                 .IsRequired();
 
             builder.HasOne(i => i.Job)
-            .WithOne(i => i.Person)
+            .WithMany(i => i.Person)
             .OnDelete(DeleteBehavior.Restrict);
         }
     }

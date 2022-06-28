@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AS_OOP_RacingTeams.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220628192413_Entities")]
-    partial class Entities
+    [Migration("20220628224104_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -141,9 +141,9 @@ namespace AS_OOP_RacingTeams.Migrations
             modelBuilder.Entity("AS_OOP_RacingTeams.Domain.Entities.Person", b =>
                 {
                     b.HasOne("AS_OOP_RacingTeams.Domain.Entities.Job", "Job")
-                        .WithMany()
+                        .WithMany("Person")
                         .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Job");
@@ -177,6 +177,11 @@ namespace AS_OOP_RacingTeams.Migrations
                         .HasForeignKey("TeamsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AS_OOP_RacingTeams.Domain.Entities.Job", b =>
+                {
+                    b.Navigation("Person");
                 });
 #pragma warning restore 612, 618
         }
