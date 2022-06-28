@@ -23,5 +23,18 @@ namespace AS_OOP_RacingTeams.Controllers
             var jobList = await _repository.GetAllAsync();
             return Ok(jobList);
         }
+
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetByIdAsync([FromRoute] int id)
+        {
+            var job = await _repository.GetByIdAsync(id);
+            if (job == null)
+            {
+                return BadRequest("Job Not Found");
+            }
+            return Ok(job);
+        }
+
     }
 }
