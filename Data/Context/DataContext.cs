@@ -6,10 +6,7 @@ namespace AS_OOP_RacingTeams.Data.Context
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
-        {
-
-        }
+        public DataContext(DbContextOptions<DataContext> options) : base(options){}
 
         public DbSet<Job> Jobs { get; set; }
 
