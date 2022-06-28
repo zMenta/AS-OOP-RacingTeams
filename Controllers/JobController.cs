@@ -1,3 +1,4 @@
+using AS_OOP_RacingTeams.Domain.Entities;
 using AS_OOP_RacingTeams.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ namespace AS_OOP_RacingTeams.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<ActionResult<List<Job>>> GetAllAsync()
         {
             var jobList = await _repository.GetAllAsync();
             return Ok(jobList);
