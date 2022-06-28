@@ -26,7 +26,7 @@ namespace AS_OOP_RacingTeams.Controllers
 
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetByIdAsync([FromRoute] int id)
+        public async Task<ActionResult<Job>> GetByIdAsync([FromRoute] int id)
         {
             var job = await _repository.GetByIdAsync(id);
             if (job == null)
@@ -35,6 +35,10 @@ namespace AS_OOP_RacingTeams.Controllers
             }
             return Ok(job);
         }
+
+
+        // [HttpPost]
+        // public async Task<IActionResult>
 
     }
 }
