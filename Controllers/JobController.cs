@@ -39,7 +39,7 @@ namespace AS_OOP_RacingTeams.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Job>> PostAsync([FromBody] JobModel model)
+        public async Task<ActionResult<JobModel>> PostAsync([FromBody] JobModel model)
         {
             Job job = new Job
             {
@@ -53,7 +53,7 @@ namespace AS_OOP_RacingTeams.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Job>> DeleteAsync([FromRoute] int id)
+        public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             bool deleted = _repository.Delete(id);
 
@@ -64,8 +64,23 @@ namespace AS_OOP_RacingTeams.Controllers
 
             await _unitOfWork.CommitAsync();
             return Ok("Deleted Job Id: " + id);
+        }
 
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<JobModel>> PutAsync([FromRoute] int id,[FromBody] JobModel model)
+        {
+            Job job = await _repository.GetByIdAsync(id);
 
+            if (job == null)
+            {
+                return NotFound();
+            }
+
+            job.Name = model.Name;
+            _repository.Update(job);
+            await _unitOfWork.CommitAsync();
+
+            return Ok(job);
         }
 
     }
