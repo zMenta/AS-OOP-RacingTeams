@@ -1,5 +1,6 @@
 using AS_OOP_RacingTeams.Domain.Entities;
 using AS_OOP_RacingTeams.Domain.Interfaces;
+using AS_OOP_RacingTeams.Dto;
 using AS_OOP_RacingTeams.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,7 @@ namespace AS_OOP_RacingTeams.Controllers
     [Route("api/job")]
     public class JobController : ControllerBase
     {
-        
+
         private readonly IJobRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
 
@@ -20,10 +21,24 @@ namespace AS_OOP_RacingTeams.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<List<Job>>> GetAllAsync()
+        public async Task<ActionResult<List<JobDto>>> GetAllAsync()
         {
             IList<Job> jobList = await _repository.GetAllAsync();
-            return Ok(jobList);
+
+            List<JobDto> dtoList = new List<JobDto>();
+
+            foreach (Job job in jobList)
+            {
+                JobDto jobDto = new JobDto()
+                {
+                    Id = job.Id,
+                    Name = job.Name,
+                };
+
+                dtoList.Add(jobDto);
+            }
+
+            return Ok(dtoList);
         }
 
 
