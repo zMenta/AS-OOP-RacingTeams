@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AS_OOP_RacingTeams.Controllers
 {
+    [Route("api/Person")]
     public class PersonController : ControllerBase
     {
         private readonly IPersonRepository _repository;
