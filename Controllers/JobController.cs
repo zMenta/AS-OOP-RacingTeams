@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AS_OOP_RacingTeams.Controllers
 {
-    [Route("api/")]
+    [Route("api/job")]
     public class JobController : ControllerBase
     {
 
