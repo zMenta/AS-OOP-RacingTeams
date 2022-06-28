@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AS_OOP_RacingTeams.Migrations
 {
-    public partial class PersonMigration : Migration
+    public partial class Entities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,6 +28,19 @@ namespace AS_OOP_RacingTeams.Migrations
                         principalTable: "jobs",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SponsorShip",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SponsorShip", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,22 +82,27 @@ namespace AS_OOP_RacingTeams.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SponsorShip",
+                name: "SponsorShipTeam",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    TeamId = table.Column<int>(type: "integer", nullable: true)
+                    SponsorShipsId = table.Column<int>(type: "integer", nullable: false),
+                    TeamsId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SponsorShip", x => x.Id);
+                    table.PrimaryKey("PK_SponsorShipTeam", x => new { x.SponsorShipsId, x.TeamsId });
                     table.ForeignKey(
-                        name: "FK_SponsorShip_Team_TeamId",
-                        column: x => x.TeamId,
+                        name: "FK_SponsorShipTeam_SponsorShip_SponsorShipsId",
+                        column: x => x.SponsorShipsId,
+                        principalTable: "SponsorShip",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SponsorShipTeam_Team_TeamsId",
+                        column: x => x.TeamsId,
                         principalTable: "Team",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -98,9 +116,9 @@ namespace AS_OOP_RacingTeams.Migrations
                 column: "TeamsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SponsorShip_TeamId",
-                table: "SponsorShip",
-                column: "TeamId");
+                name: "IX_SponsorShipTeam_TeamsId",
+                table: "SponsorShipTeam",
+                column: "TeamsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -109,10 +127,13 @@ namespace AS_OOP_RacingTeams.Migrations
                 name: "PersonTeam");
 
             migrationBuilder.DropTable(
-                name: "SponsorShip");
+                name: "SponsorShipTeam");
 
             migrationBuilder.DropTable(
                 name: "persons");
+
+            migrationBuilder.DropTable(
+                name: "SponsorShip");
 
             migrationBuilder.DropTable(
                 name: "Team");
