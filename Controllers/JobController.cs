@@ -18,6 +18,7 @@ namespace AS_OOP_RacingTeams.Controllers
             _unitOfWork = unitOfWork;
         }
 
+
         [HttpGet]
         public async Task<ActionResult<List<Job>>> GetAllAsync()
         {
@@ -52,6 +53,7 @@ namespace AS_OOP_RacingTeams.Controllers
             return Ok(job);
         }
 
+
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
@@ -66,8 +68,9 @@ namespace AS_OOP_RacingTeams.Controllers
             return Ok("Deleted Job Id: " + id);
         }
 
+
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<JobModel>> PutAsync([FromRoute] int id,[FromBody] JobModel model)
+        public async Task<ActionResult<JobModel>> PutAsync([FromRoute] int id, [FromBody] JobModel model)
         {
             Job job = await _repository.GetByIdAsync(id);
 
