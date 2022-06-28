@@ -43,14 +43,21 @@ namespace AS_OOP_RacingTeams.Controllers
 
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Job>> GetByIdAsync([FromRoute] int id)
+        public async Task<ActionResult<JobDto>> GetByIdAsync([FromRoute] int id)
         {
             Job job = await _repository.GetByIdAsync(id);
             if (job == null)
             {
                 return NotFound();
             }
-            return Ok(job);
+
+            JobDto jobDto = new JobDto()
+            {
+                Id = job.Id,
+                Name = job.Name,
+            };
+
+            return Ok(jobDto);
         }
 
 
