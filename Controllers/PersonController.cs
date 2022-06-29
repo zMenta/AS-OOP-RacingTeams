@@ -101,6 +101,24 @@ namespace AS_OOP_RacingTeams.Controllers
             return Ok("Deleted Person Id: " + id);
         }
 
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<PersonModel>> PatchAsync([FromRoute] int id, [FromBody] PersonModel model){
+            Person person = await _repository.GetByIdAsync(id);
+
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            person.Name = model.Name;
+            person.Birth_year = model.Birth_year;
+            person.JobId = model.JobId;
+
+            _repository.Update(person);
+            await _unitOfWork.CommitAsync();
+
+            return Ok(model);
+        }
 
     }
 }
