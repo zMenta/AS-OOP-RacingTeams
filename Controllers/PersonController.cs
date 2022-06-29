@@ -22,9 +22,6 @@ namespace AS_OOP_RacingTeams.Controllers
         public async Task<ActionResult<List<PersonDto>>> GetAllAsync()
         {
             var personList = await _repository.GetAllAsync();
-            
-
-
             return Ok(personList);
         }
 

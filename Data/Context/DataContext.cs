@@ -8,8 +8,8 @@ namespace AS_OOP_RacingTeams.Data.Context
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        public DbSet<Job>? Jobs { get; set; }
-        public DbSet<Person>? Persons { get; set; }
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<Person> Persons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
