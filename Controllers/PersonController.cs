@@ -74,7 +74,15 @@ namespace AS_OOP_RacingTeams.Controllers
             _repository.Save(person);
             await _unitOfWork.CommitAsync();
 
-            return Ok(person);
+            PersonDto personDto = new PersonDto
+            {
+                Id = person.Id,
+                Name = person.Name,
+                Birth_year = person.Birth_year,
+                JobId = person.JobId,
+            };
+
+            return Ok(personDto);
         }
 
 
