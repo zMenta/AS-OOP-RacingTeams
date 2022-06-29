@@ -21,8 +21,23 @@ namespace AS_OOP_RacingTeams.Controllers
         [HttpGet]
         public async Task<ActionResult<List<PersonDto>>> GetAllAsync()
         {
-            var personList = await _repository.GetAllAsync();
-            return Ok(personList);
+            IList<Person> personList = await _repository.GetAllAsync();
+            List<PersonDto> dtoList = new List<PersonDto>();
+
+            foreach (Person person in personList)
+            {
+                PersonDto personDto = new PersonDto()
+                {
+                    Id = person.Id,
+                    Name = person.Name,
+                    Birth_year = person.Birth_year,
+                    JobId = person.JobId,
+                };
+
+                dtoList.Add(personDto);
+            }
+
+            return Ok(dtoList);
         }
 
 
