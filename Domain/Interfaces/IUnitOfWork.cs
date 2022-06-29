@@ -6,7 +6,7 @@ namespace AS_OOP_RacingTeams.Domain.Interfaces
 
         IJobRepository JobRepository { get; }
         // IPersonRepository PersonRepository { get; }
-        // ISponsorShipRepository SponsorShipRepository { get; }
+        ISponsorShipRepository SponsorShipRepository { get; }
         // ITeamRepository TeamRepository { get; }
     }
 }
