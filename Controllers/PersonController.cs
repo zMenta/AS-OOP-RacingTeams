@@ -86,5 +86,21 @@ namespace AS_OOP_RacingTeams.Controllers
         }
 
 
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] int id)
+        {
+
+            bool deleted = _repository.Delete(id);
+
+            if (deleted == false)
+            {
+                return NotFound();
+            }
+
+            await _unitOfWork.CommitAsync();
+            return Ok("Deleted Person Id: " + id);
+        }
+
+
     }
 }
