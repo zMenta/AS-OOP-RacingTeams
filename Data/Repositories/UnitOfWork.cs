@@ -19,10 +19,16 @@ namespace AS_OOP_RacingTeams.Data.Repositories
         }
 
         private IJobRepository _JobRepository;
+        private ITeamRepository _TeamRepository;
 
         public IJobRepository JobRepository
         {
             get { return _JobRepository ??= new JobRepository(_Context);}
+        }
+        
+        public ITeamRepository TeamRepository
+        {
+            get { return _TeamRepository ??= new TeamRepository(_Context);}
         }
         
 

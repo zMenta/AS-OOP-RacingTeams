@@ -9,10 +9,12 @@ namespace AS_OOP_RacingTeams.Data.Context
         public DataContext(DbContextOptions<DataContext> options) : base(options){}
 
         public DbSet<Job> Jobs { get; set; }
+        public DbSet<Team> Team { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new JobMap());
+            modelBuilder.ApplyConfiguration(new TeamMap());
         }
 
     }

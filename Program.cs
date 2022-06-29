@@ -22,6 +22,7 @@ builder.Services.AddDbContext<DataContext>(
 
 builder.Services.AddScoped<IJobRepository, JobRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 
 
 var app = builder.Build();
