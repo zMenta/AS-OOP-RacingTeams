@@ -21,6 +21,7 @@ builder.Services.AddDbContext<DataContext>(
 // Repositories 
 
 builder.Services.AddScoped<IJobRepository, JobRepository>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
