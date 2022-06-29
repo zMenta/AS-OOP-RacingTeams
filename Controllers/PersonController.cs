@@ -26,7 +26,7 @@ namespace AS_OOP_RacingTeams.Controllers
 
             foreach (Person person in personList)
             {
-                PersonDto personDto = new PersonDto()
+                PersonDto personDto = new PersonDto
                 {
                     Id = person.Id,
                     Name = person.Name,
@@ -50,7 +50,7 @@ namespace AS_OOP_RacingTeams.Controllers
                 return NotFound();
             }
 
-            PersonDto personDto = new PersonDto()
+            PersonDto personDto = new PersonDto
             {
                 Id = person.Id,
                 Name = person.Name,
@@ -60,6 +60,23 @@ namespace AS_OOP_RacingTeams.Controllers
 
             return Ok(personDto);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<PersonModel>> PostAsync([FromBody] PersonModel model)
+        {
+            Person person = new Person
+            {
+                Name = model.Name,
+                Birth_year = model.Birth_year,
+                JobId = model.JobId,
+            };
+
+            _repository.Save(person);
+            await _unitOfWork.CommitAsync();
+
+            return Ok(person);
+        }
+
 
     }
 }

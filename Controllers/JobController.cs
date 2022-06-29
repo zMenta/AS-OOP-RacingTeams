@@ -51,7 +51,7 @@ namespace AS_OOP_RacingTeams.Controllers
                 return NotFound();
             }
 
-            JobDto jobDto = new JobDto()
+            JobDto jobDto = new JobDto
             {
                 Id = job.Id,
                 Name = job.Name,
