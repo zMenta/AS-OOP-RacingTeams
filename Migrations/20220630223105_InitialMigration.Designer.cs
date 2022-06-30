@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AS_OOP_RacingTeams.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220630220035_InitialMigration")]
+    [Migration("20220630223105_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,19 +97,25 @@ namespace AS_OOP_RacingTeams.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Cnpj")
-                        .HasColumnType("integer");
+                        .HasMaxLength(14)
+                        .HasColumnType("integer")
+                        .HasColumnName("cnpj");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Team");
+                    b.ToTable("teams", (string)null);
                 });
 
             modelBuilder.Entity("PersonTeam", b =>

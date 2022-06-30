@@ -36,17 +36,17 @@ namespace AS_OOP_RacingTeams.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Team",
+                name: "teams",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Cnpj = table.Column<int>(type: "integer", nullable: false)
+                    name = table.Column<string>(type: "VARCHAR", maxLength: 40, nullable: false),
+                    cnpj = table.Column<int>(type: "integer", maxLength: 14, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Team", x => x.Id);
+                    table.PrimaryKey("PK_teams", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -87,10 +87,10 @@ namespace AS_OOP_RacingTeams.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SponsorShipTeam_Team_TeamsId",
+                        name: "FK_SponsorShipTeam_teams_TeamsId",
                         column: x => x.TeamsId,
-                        principalTable: "Team",
-                        principalColumn: "Id",
+                        principalTable: "teams",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -111,10 +111,10 @@ namespace AS_OOP_RacingTeams.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PersonTeam_Team_TeamsId",
+                        name: "FK_PersonTeam_teams_TeamsId",
                         column: x => x.TeamsId,
-                        principalTable: "Team",
-                        principalColumn: "Id",
+                        principalTable: "teams",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -149,7 +149,7 @@ namespace AS_OOP_RacingTeams.Migrations
                 name: "sponsorShips");
 
             migrationBuilder.DropTable(
-                name: "Team");
+                name: "teams");
 
             migrationBuilder.DropTable(
                 name: "jobs");

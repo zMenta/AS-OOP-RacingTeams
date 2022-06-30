@@ -8,7 +8,7 @@ namespace AS_OOP_RacingTeams.Data.Types
     {
         public void Configure(EntityTypeBuilder<Team> builder)
         {
-            builder.ToTable("Team");
+            builder.ToTable("teams");
 
             builder.Property(i => i.Id)
                 .HasColumnName("id");

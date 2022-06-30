@@ -7,5 +7,6 @@ namespace AS_OOP_RacingTeams.Domain.Entities
         public int Cnpj { get; set; }
         public IList<Person> Persons { get; set; }
         public IList<SponsorShip> SponsorShips { get; set; }
+
     }
 }

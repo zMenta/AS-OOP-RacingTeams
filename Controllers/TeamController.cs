@@ -42,6 +42,7 @@ namespace AS_OOP_RacingTeams.Controllers
         [HttpPost]
         public async Task<ActionResult<TeamModel>> PostAsync([FromBody] TeamModel model)
         {
+
             Team team = new Team
             {
                 Name = model.Name,
@@ -85,6 +86,7 @@ namespace AS_OOP_RacingTeams.Controllers
                 return NotFound();
             }
 
+            // Null error in line 88
             team.Name = model.Name;
             team.Cnpj = model.Cnpj;
 
