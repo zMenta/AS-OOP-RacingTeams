@@ -17,7 +17,7 @@ namespace AS_OOP_RacingTeams.Data.Repositories
 
         public bool Delete(int entityId)
         {
-            var team = _Context.Team.FirstOrDefault(i => i.Id == entityId);
+            var team = _Context.Teams.FirstOrDefault(i => i.Id == entityId);
 
             if (team == null)
             {
@@ -25,24 +25,24 @@ namespace AS_OOP_RacingTeams.Data.Repositories
             }
             else
             {
-                _Context.Team.Remove(team);
+                _Context.Teams.Remove(team);
                 return true;
             }
         }
 
         public async Task<IList<Team>> GetAllAsync()
         {
-            return await _Context.Team.ToListAsync();
+            return await _Context.Teams.ToListAsync();
         }
 
         public async Task<Team> GetByIdAsync(int entityId)
         {
-           return await _Context.Team.FirstOrDefaultAsync(i => i.Id == entityId);
+            return await _Context.Teams.FirstOrDefaultAsync(i => i.Id == entityId);
         }
 
         public void Save(Team entity)
         {
-             _Context.Team.Add(entity);
+            _Context.Teams.Add(entity);
         }
 
         public void Update(Team entity)
