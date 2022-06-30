@@ -8,7 +8,7 @@ namespace AS_OOP_RacingTeams.Data.Types
     {
         public void Configure(EntityTypeBuilder<Team> builder)
         {
-            builder.ToTable("team");
+            builder.ToTable("Team");
 
             builder.Property(i => i.Id)
                 .HasColumnName("id");
@@ -19,6 +19,12 @@ namespace AS_OOP_RacingTeams.Data.Types
                 .HasColumnName("name")
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(40)
+                .IsRequired();
+
+            builder.Property(i => i.Cnpj)
+                .HasColumnName("cnpj")
+                .HasColumnType("integer")
+                .HasMaxLength(14)
                 .IsRequired();
         }
     }
