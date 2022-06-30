@@ -1,6 +1,6 @@
 namespace AS_OOP_RacingTeams.Models
 {
-    public class JobModel
+    public class SponsorShipModel
     {
         public string Name { get; set; }
     }

@@ -17,7 +17,7 @@ namespace AS_OOP_RacingTeams.Data.Repositories
 
         public bool Delete(int entityId)
         {
-            var job = _Context.Jobs.FirstOrDefault(i => i.Id == entityId);
+            Job job = _Context.Jobs.FirstOrDefault(i => i.Id == entityId);
 
             if (job == null)
             {
