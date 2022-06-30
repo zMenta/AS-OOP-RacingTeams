@@ -20,8 +20,10 @@ namespace AS_OOP_RacingTeams.Data.Repositories
 
         
         private IJobRepository _JobRepository;
+        private ITeamRepository _TeamRepository;
         private ISponsorShipRepository _SponsorShipRepository;
         private IPersonRepository _PersonRepository;
+
 
 
         public IJobRepository JobRepository
@@ -33,6 +35,12 @@ namespace AS_OOP_RacingTeams.Data.Repositories
         {
             get { return _SponsorShipRepository ??= new SponsorShipRepository(_Context);}
         }
+        
+        public ITeamRepository TeamRepository
+        {
+            get { return _TeamRepository ??= new TeamRepository(_Context);}
+        }
+        
 
         public IPersonRepository PersonRepository
         {
