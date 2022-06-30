@@ -2,6 +2,7 @@
 using AS_OOP_RacingTeams.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AS_OOP_RacingTeams.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220628224104_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,11 +43,7 @@ namespace AS_OOP_RacingTeams.Migrations
                     b.ToTable("jobs", (string)null);
                 });
 
-
-            modelBuilder.Entity("AS_OOP_RacingTeams.Domain.Entities.SponsorShip", b =>
-
             modelBuilder.Entity("AS_OOP_RacingTeams.Domain.Entities.Person", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,7 +60,6 @@ namespace AS_OOP_RacingTeams.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("job_id");
 
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(40)
@@ -70,9 +67,6 @@ namespace AS_OOP_RacingTeams.Migrations
                         .HasColumnName("name");
 
                     b.HasKey("Id");
-
-
-                    b.ToTable("SponsorShip", (string)null);
 
                     b.HasIndex("JobId");
 
@@ -188,7 +182,6 @@ namespace AS_OOP_RacingTeams.Migrations
             modelBuilder.Entity("AS_OOP_RacingTeams.Domain.Entities.Job", b =>
                 {
                     b.Navigation("Person");
-
                 });
 #pragma warning restore 612, 618
         }
