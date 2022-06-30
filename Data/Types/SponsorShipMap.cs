@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AS_OOP_RacingTeams.Data.Types
 {
-    public class TeamMap : IEntityTypeConfiguration<Team>
+    public class SponsorShipMap : IEntityTypeConfiguration<SponsorShip>
     {
-        public void Configure(EntityTypeBuilder<Team> builder)
+        public void Configure(EntityTypeBuilder<SponsorShip> builder)
         {
-            builder.ToTable("teams");
+            builder.ToTable("sponsorShips");
 
             builder.Property(i => i.Id)
                 .HasColumnName("id");
@@ -19,12 +19,6 @@ namespace AS_OOP_RacingTeams.Data.Types
                 .HasColumnName("name")
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(40)
-                .IsRequired();
-
-            builder.Property(i => i.Cnpj)
-                .HasColumnName("cnpj")
-                .HasColumnType("integer")
-                .HasMaxLength(14)
                 .IsRequired();
         }
     }

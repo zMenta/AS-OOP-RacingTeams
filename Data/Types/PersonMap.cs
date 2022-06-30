@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AS_OOP_RacingTeams.Data.Types
 {
-    public class TeamMap : IEntityTypeConfiguration<Team>
+    public class PersonMap : IEntityTypeConfiguration<Person>
     {
-        public void Configure(EntityTypeBuilder<Team> builder)
+        public void Configure(EntityTypeBuilder<Person> builder)
         {
-            builder.ToTable("teams");
+            builder.ToTable("persons");
 
             builder.Property(i => i.Id)
                 .HasColumnName("id");
@@ -21,11 +21,19 @@ namespace AS_OOP_RacingTeams.Data.Types
                 .HasMaxLength(40)
                 .IsRequired();
 
-            builder.Property(i => i.Cnpj)
-                .HasColumnName("cnpj")
+            builder.Property(i => i.Birth_year)
+                .HasColumnName("birth_year")
                 .HasColumnType("integer")
-                .HasMaxLength(14)
                 .IsRequired();
+
+            builder.Property(i => i.JobId)
+                .HasColumnName("job_id")
+                .HasColumnType("integer")
+                .IsRequired();
+
+            builder.HasOne(i => i.Job)
+            .WithMany(i => i.Person)
+            .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

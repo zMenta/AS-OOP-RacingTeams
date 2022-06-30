@@ -18,12 +18,22 @@ namespace AS_OOP_RacingTeams.Data.Repositories
             await _Context.SaveChangesAsync();
         }
 
+        
         private IJobRepository _JobRepository;
         private ITeamRepository _TeamRepository;
+        private ISponsorShipRepository _SponsorShipRepository;
+        private IPersonRepository _PersonRepository;
+
+
 
         public IJobRepository JobRepository
         {
-            get { return _JobRepository ??= new JobRepository(_Context);}
+            get { return _JobRepository ??= new JobRepository(_Context); }
+        }
+
+        public ISponsorShipRepository SponsorShipRepository
+        {
+            get { return _SponsorShipRepository ??= new SponsorShipRepository(_Context);}
         }
         
         public ITeamRepository TeamRepository
@@ -32,5 +42,9 @@ namespace AS_OOP_RacingTeams.Data.Repositories
         }
         
 
+        public IPersonRepository PersonRepository
+        {
+            get { return _PersonRepository ??= new PersonRepository(_Context); }
+        }
     }
 }
