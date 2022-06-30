@@ -23,16 +23,16 @@ namespace AS_OOP_RacingTeams.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SponsorShip",
+                name: "sponsorShips",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true)
+                    name = table.Column<string>(type: "VARCHAR", maxLength: 40, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SponsorShip", x => x.Id);
+                    table.PrimaryKey("PK_sponsorShips", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,10 +81,10 @@ namespace AS_OOP_RacingTeams.Migrations
                 {
                     table.PrimaryKey("PK_SponsorShipTeam", x => new { x.SponsorShipsId, x.TeamsId });
                     table.ForeignKey(
-                        name: "FK_SponsorShipTeam_SponsorShip_SponsorShipsId",
+                        name: "FK_SponsorShipTeam_sponsorShips_SponsorShipsId",
                         column: x => x.SponsorShipsId,
-                        principalTable: "SponsorShip",
-                        principalColumn: "Id",
+                        principalTable: "sponsorShips",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SponsorShipTeam_Team_TeamsId",
@@ -146,7 +146,7 @@ namespace AS_OOP_RacingTeams.Migrations
                 name: "persons");
 
             migrationBuilder.DropTable(
-                name: "SponsorShip");
+                name: "sponsorShips");
 
             migrationBuilder.DropTable(
                 name: "Team");

@@ -41,11 +41,7 @@ namespace AS_OOP_RacingTeams.Migrations
                     b.ToTable("jobs", (string)null);
                 });
 
-
-            modelBuilder.Entity("AS_OOP_RacingTeams.Domain.Entities.SponsorShip", b =>
-
             modelBuilder.Entity("AS_OOP_RacingTeams.Domain.Entities.Person", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,7 +58,6 @@ namespace AS_OOP_RacingTeams.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("job_id");
 
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(40)
@@ -70,9 +65,6 @@ namespace AS_OOP_RacingTeams.Migrations
                         .HasColumnName("name");
 
                     b.HasKey("Id");
-
-
-                    b.ToTable("SponsorShip", (string)null);
 
                     b.HasIndex("JobId");
 
@@ -83,16 +75,20 @@ namespace AS_OOP_RacingTeams.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("VARCHAR")
+                        .HasColumnName("name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("SponsorShip");
+                    b.ToTable("sponsorShips", (string)null);
                 });
 
             modelBuilder.Entity("AS_OOP_RacingTeams.Domain.Entities.Team", b =>
@@ -188,7 +184,6 @@ namespace AS_OOP_RacingTeams.Migrations
             modelBuilder.Entity("AS_OOP_RacingTeams.Domain.Entities.Job", b =>
                 {
                     b.Navigation("Person");
-
                 });
 #pragma warning restore 612, 618
         }

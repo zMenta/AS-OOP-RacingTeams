@@ -8,15 +8,15 @@ namespace AS_OOP_RacingTeams.Data.Types
     {
         public void Configure(EntityTypeBuilder<SponsorShip> builder)
         {
-            builder.ToTable("SponsorShip");
+            builder.ToTable("sponsorShips");
 
             builder.Property(i => i.Id)
-                .HasColumnName("Id");
+                .HasColumnName("id");
 
             builder.HasKey(i => i.Id);
 
             builder.Property(i => i.Name)
-                .HasColumnName("Name")
+                .HasColumnName("name")
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(40)
                 .IsRequired();
