@@ -1,4 +1,6 @@
 
+using AS_OOP_RacingTeams.Domain.Entities;
+
 namespace AS_OOP_RacingTeams.Dto
 {
     public class PersonDto
@@ -6,7 +8,7 @@ namespace AS_OOP_RacingTeams.Dto
         public int Id { get; set; }
         public string Name { get; set; }
         public int Birth_year { get; set; }
-        public int JobId { get; set; }
+        public Job job { get; set; }
 
     }
 }

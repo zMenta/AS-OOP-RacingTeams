@@ -33,7 +33,9 @@ namespace AS_OOP_RacingTeams.Data.Repositories
 
         public async Task<IList<Person>> GetAllAsync()
         {
-            return await _Context.Persons.ToListAsync();
+            return await _Context.Persons
+            .Include(i => i.Job)
+            .ToListAsync();
         }
 
 
@@ -50,7 +52,9 @@ namespace AS_OOP_RacingTeams.Data.Repositories
 
         public async Task<Person> GetByIdAsync(int entityId)
         {
-            return await _Context.Persons.FirstOrDefaultAsync(i => i.Id == entityId);
+            return await _Context.Persons
+            .Include(i => i.Job)
+            .FirstOrDefaultAsync(i => i.Id == entityId);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace AS_OOP_RacingTeams.Controllers
                     Id = person.Id,
                     Name = person.Name,
                     Birth_year = person.Birth_year,
-                    JobId = person.JobId,
+                    job = person.Job,
                 };
 
                 dtoList.Add(personDto);
@@ -55,7 +55,7 @@ namespace AS_OOP_RacingTeams.Controllers
                 Id = person.Id,
                 Name = person.Name,
                 Birth_year = person.Birth_year,
-                JobId = person.JobId,
+                job = person.Job,
             };
 
             return Ok(personDto);
@@ -79,7 +79,7 @@ namespace AS_OOP_RacingTeams.Controllers
                 Id = person.Id,
                 Name = person.Name,
                 Birth_year = person.Birth_year,
-                JobId = person.JobId,
+                job = person.Job,
             };
 
             return Ok(personDto);
@@ -102,7 +102,8 @@ namespace AS_OOP_RacingTeams.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<PersonModel>> PatchAsync([FromRoute] int id, [FromBody] PersonModel model){
+        public async Task<ActionResult<PersonModel>> PatchAsync([FromRoute] int id, [FromBody] PersonModel model)
+        {
             Person person = await _repository.GetByIdAsync(id);
 
             if (person == null)
