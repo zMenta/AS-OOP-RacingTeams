@@ -1,6 +1,6 @@
 namespace AS_OOP_RacingTeams.Models
 {
-    public class AddSponsorToTeamModel
+    public class SponsorShipTeamModel
     {
         public int TeamId { get; set; }
 

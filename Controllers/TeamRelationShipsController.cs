@@ -24,7 +24,7 @@ namespace AS_OOP_RacingTeams.Controllers
 
 
         [HttpPost("/AddSponsorToTeam")]
-        public async Task<IActionResult> PostSponsor([FromBody] AddSponsorToTeamModel model)
+        public async Task<IActionResult> PostSponsor([FromBody] SponsorShipTeamModel model)
         {
 
             Team team = await _teamRepository.GetByIdAsync(model.TeamId);
@@ -54,7 +54,7 @@ namespace AS_OOP_RacingTeams.Controllers
 
 
         [HttpPost("/AddPersonToTeam")]
-        public async Task<IActionResult> PostPerson([FromBody] AddPersonToTeamModel model)
+        public async Task<IActionResult> PostPerson([FromBody] PersonTeamModel model)
         {
             Team team = await _teamRepository.GetByIdAsync(model.TeamId);
             Person person = await _personRepository.GetByIdAsync(model.PersonId);
@@ -81,7 +81,8 @@ namespace AS_OOP_RacingTeams.Controllers
             return Ok(team);
         }
 
-
+        // [HttpDelete("/RemovePersonFromTeam")]
+        // public async Task<IActionResult> DeletePerson([FromBody] )
 
     }
 }
