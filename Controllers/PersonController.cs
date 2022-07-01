@@ -1,7 +1,6 @@
 using AS_OOP_RacingTeams.Domain.Entities;
 using AS_OOP_RacingTeams.Domain.Interfaces;
 using AS_OOP_RacingTeams.Dto;
-using AS_OOP_RacingTeams.Dto.DtoRelations;
 using AS_OOP_RacingTeams.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,18 +31,8 @@ namespace AS_OOP_RacingTeams.Controllers
                     Id = person.Id,
                     Name = person.Name,
                     Birth_year = person.Birth_year,
-                    JobId = person.JobId,
+                    job = person.Job,
                 };
-
-                 foreach(Team team in person.Teams)
-                {
-                    TeamRelationsDto teamRelationsDto = new TeamRelationsDto
-                    {
-                        Id = team.Id,
-                        Name = team.Name, 
-                        Cnpj = team.Cnpj                     
-                    };
-                }
 
                 dtoList.Add(personDto);
             }
@@ -66,7 +55,7 @@ namespace AS_OOP_RacingTeams.Controllers
                 Id = person.Id,
                 Name = person.Name,
                 Birth_year = person.Birth_year,
-                JobId = person.JobId,
+                job = person.Job,
             };
 
             return Ok(personDto);
@@ -90,7 +79,7 @@ namespace AS_OOP_RacingTeams.Controllers
                 Id = person.Id,
                 Name = person.Name,
                 Birth_year = person.Birth_year,
-                JobId = person.JobId,
+                job = person.Job,
             };
 
             return Ok(personDto);
@@ -113,7 +102,8 @@ namespace AS_OOP_RacingTeams.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<PersonModel>> PatchAsync([FromRoute] int id, [FromBody] PersonModel model){
+        public async Task<ActionResult<PersonModel>> PatchAsync([FromRoute] int id, [FromBody] PersonModel model)
+        {
             Person person = await _repository.GetByIdAsync(id);
 
             if (person == null)

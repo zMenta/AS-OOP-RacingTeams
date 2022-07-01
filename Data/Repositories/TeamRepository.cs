@@ -40,7 +40,10 @@ namespace AS_OOP_RacingTeams.Data.Repositories
 
         public async Task<Team> GetByIdAsync(int entityId)
         {
-            return await _Context.Teams.FirstOrDefaultAsync(i => i.Id == entityId);
+            return await _Context.Teams
+            .Include(x => x.Persons)
+            .Include(x => x.SponsorShips)
+            .FirstOrDefaultAsync(i => i.Id == entityId);
         }
 
         public void Save(Team entity)

@@ -3,7 +3,6 @@ using AS_OOP_RacingTeams.Domain.Interfaces;
 using AS_OOP_RacingTeams.Models;
 using AS_OOP_RacingTeams.Dto;
 using Microsoft.AspNetCore.Mvc;
-using AS_OOP_RacingTeams.Dto.DtoRelations;
 
 namespace AS_OOP_RacingTeams.Controllers
 {
@@ -25,53 +24,9 @@ namespace AS_OOP_RacingTeams.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TeamDto>>> GetAllAsync()
+        public async Task<ActionResult<List<Team>>> GetAllAsync()
         {
-            IList<Team> teamList = await _repository.GetAllAsync();
-            List<TeamDto> dtoList = new List<TeamDto>();
-
-            foreach (Team team in teamList)
-            {
-                TeamDto teamDto = new TeamDto
-                {
-                    Id = team.Id,
-                    Name = team.Name,
-                    Cnpj = team.Cnpj,
-                    
-                };
-                foreach(SponsorShip sponsorShip in team.SponsorShips)
-                {
-                    SponsorRelationsDto sponsorShipDto = new SponsorRelationsDto
-                    {
-                        Id = sponsorShip.Id,
-                        Name = sponsorShip.Name,                      
-                    };
-                }
-                
-
-                dtoList.Add(teamDto);
-            }
-
-            return Ok(dtoList);
-        }
-
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<TeamDto>> GetByIdAsync([FromRoute] int id)
-        {
-            Team team = await _repository.GetByIdAsync(id);
-            if (team == null)
-            {
-                return NotFound();
-            }
-
-            TeamDto teamDto = new TeamDto
-            {
-                Id = team.Id,
-                Name = team.Name,
-                Cnpj = team.Cnpj,
-            };
-
-            return Ok(teamDto);
+            return Ok(await _repository.GetAllAsync());
         }
 
         [HttpPost]
