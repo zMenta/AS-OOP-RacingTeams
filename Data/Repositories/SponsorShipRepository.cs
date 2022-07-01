@@ -30,16 +30,21 @@ namespace AS_OOP_RacingTeams.Data.Repositories
 
         public async Task<IList<SponsorShip>> GetAllAsync()
         {
-            return await _Context.SponsorShips.ToListAsync();
+            return await _Context.SponsorShips
+            .Include(x => x.Teams)
+            .ToListAsync();
         }
 
         public async Task<SponsorShip> GetByIdAsync(int entityId)
         {
-            return await _Context.SponsorShips.FirstOrDefaultAsync(i => i.Id == entityId);
+            return await _Context.SponsorShips
+            .Include(x => x.Teams)
+            .FirstOrDefaultAsync(i => i.Id == entityId);
         }
 
         public void Save(SponsorShip entity)
         {
+
             _Context.SponsorShips.Add(entity);
         }
 

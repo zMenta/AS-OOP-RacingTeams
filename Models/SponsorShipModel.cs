@@ -1,3 +1,5 @@
+using AS_OOP_RacingTeams.Domain.Entities;
+
 namespace AS_OOP_RacingTeams.Models
 {
     public class SponsorShipModel

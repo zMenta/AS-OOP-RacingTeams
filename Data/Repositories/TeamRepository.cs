@@ -32,7 +32,10 @@ namespace AS_OOP_RacingTeams.Data.Repositories
 
         public async Task<IList<Team>> GetAllAsync()
         {
-            return await _Context.Teams.ToListAsync();
+            return await _Context.Teams
+            .Include(x => x.Persons)
+            .Include(x => x.SponsorShips)
+            .ToListAsync();
         }
 
         public async Task<Team> GetByIdAsync(int entityId)
