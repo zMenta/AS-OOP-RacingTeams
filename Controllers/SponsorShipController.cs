@@ -32,16 +32,6 @@ namespace AS_OOP_RacingTeams.Controllers
                     Name = sponsor.Name,
                 };
 
-                foreach (Team team in sponsor.Teams)
-                {
-                    TeamRelationsDto teamRelationsDto = new TeamRelationsDto
-                    {
-                        Id = team.Id,
-                        Name = team.Name,  
-                        Cnpj = team.Cnpj                    
-                    };
-                }
-
                 dtoList.Add(sponsorShipDto);
             }
 
