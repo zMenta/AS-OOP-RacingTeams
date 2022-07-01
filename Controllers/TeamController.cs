@@ -105,7 +105,6 @@ namespace AS_OOP_RacingTeams.Controllers
                 return NotFound();
             }
 
-            // Null error in line 88
             team.Name = model.Name;
             team.Cnpj = model.Cnpj;
 
