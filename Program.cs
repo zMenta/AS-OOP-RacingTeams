@@ -27,6 +27,7 @@ builder.Services.AddScoped<ISponsorShipRepository, SponsorShipRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 
 

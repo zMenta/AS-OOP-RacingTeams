@@ -16,11 +16,13 @@ namespace AS_OOP_RacingTeams.Data.Repositories
         public bool Delete(int entityId)
         {
             var sponsorship = _Context.SponsorShips.FirstOrDefault(i => i.Id == entityId);
-            
-            if (sponsorship == null){
+
+            if (sponsorship == null)
+            {
                 return false;
-            } 
-            else {
+            }
+            else
+            {
                 _Context.SponsorShips.Remove(sponsorship);
                 return true;
             }
@@ -28,9 +30,9 @@ namespace AS_OOP_RacingTeams.Data.Repositories
 
         public async Task<IList<SponsorShip>> GetAllAsync()
         {
-             return await _Context.SponsorShips
-             .Include(x => x.Teams)
-             .ToListAsync();
+            return await _Context.SponsorShips
+            .Include(x => x.Teams)
+            .ToListAsync();
         }
 
         public async Task<SponsorShip> GetByIdAsync(int entityId)
@@ -42,7 +44,7 @@ namespace AS_OOP_RacingTeams.Data.Repositories
 
         public void Save(SponsorShip entity)
         {
-            
+
             _Context.SponsorShips.Add(entity);
         }
 

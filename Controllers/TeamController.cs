@@ -12,11 +12,16 @@ namespace AS_OOP_RacingTeams.Controllers
     {
         private readonly ITeamRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPersonRepository _personRepository;
 
-        public TeamController(ITeamRepository repository, IUnitOfWork unitOfWork)
+        private readonly ISponsorShipRepository _sponsorRepository;
+
+        public TeamController(ITeamRepository repository, IUnitOfWork unitOfWork, IPersonRepository personRepository, ISponsorShipRepository sponsorRepository)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _personRepository = personRepository;
+            _sponsorRepository = sponsorRepository;
         }
 
         [HttpGet]
@@ -48,6 +53,25 @@ namespace AS_OOP_RacingTeams.Controllers
             }
 
             return Ok(dtoList);
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<TeamDto>> GetByIdAsync([FromRoute] int id)
+        {
+            Team team = await _repository.GetByIdAsync(id);
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            TeamDto teamDto = new TeamDto
+            {
+                Id = team.Id,
+                Name = team.Name,
+                Cnpj = team.Cnpj,
+            };
+
+            return Ok(teamDto);
         }
 
         [HttpPost]
@@ -89,7 +113,8 @@ namespace AS_OOP_RacingTeams.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<TeamModel>> PatchAsync([FromRoute] int id, [FromBody] TeamModel model){
+        public async Task<ActionResult<TeamModel>> PatchAsync([FromRoute] int id, [FromBody] TeamModel model)
+        {
             Team team = await _repository.GetByIdAsync(id);
 
             if (team == null)
@@ -97,7 +122,6 @@ namespace AS_OOP_RacingTeams.Controllers
                 return NotFound();
             }
 
-            // Null error in line 88
             team.Name = model.Name;
             team.Cnpj = model.Cnpj;
 
@@ -106,5 +130,64 @@ namespace AS_OOP_RacingTeams.Controllers
 
             return Ok(model);
         }
+
+
+        [HttpPost("/AddSponsorToTeam")]
+        public async Task<IActionResult> PostSponsor([FromBody] AddSponsorToTeamModel model)
+        {
+
+            Team team = await _repository.GetByIdAsync(model.TeamId);
+            SponsorShip sponsor = await _sponsorRepository.GetByIdAsync(model.SponsorShipId);
+
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            if (sponsor == null)
+            {
+                return NotFound();
+            }
+
+            if (team.SponsorShips == null)
+            {
+                team.SponsorShips = new List<SponsorShip>();
+            }
+
+            team.SponsorShips.Add(sponsor);
+            _repository.Update(team);
+            await _unitOfWork.CommitAsync();
+
+            return Ok(team);
+        }
+
+        [HttpPost("/AddPersonToTeam")]
+        public async Task<IActionResult> PostPerson([FromBody] AddPersonToTeamModel model)
+        {
+            Team team = await _repository.GetByIdAsync(model.TeamId);
+            Person person = await _personRepository.GetByIdAsync(model.PersonId);
+
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            if (team.Persons == null)
+            {
+                team.Persons = new List<Person>();
+            }
+
+            team.Persons.Add(person);
+            _repository.Update(team);
+            await _unitOfWork.CommitAsync();
+
+            return Ok(team);
+        }
+
     }
 }
