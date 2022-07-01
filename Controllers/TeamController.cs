@@ -127,7 +127,8 @@ namespace AS_OOP_RacingTeams.Controllers
             }
 
             team.SponsorShips.Add(sponsor);
-            // await _unitOfWork.CommitAsync();
+            _repository.Update(team);
+            await _unitOfWork.CommitAsync();
 
             return Ok(team);
         }
