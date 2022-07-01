@@ -19,42 +19,23 @@ namespace AS_OOP_RacingTeams.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<SponsorShipDto>>> GetAllAsync()
+        public async Task<ActionResult<List<SponsorShip>>> GetAllAsync()
         {
-            IList<SponsorShip> sponsorShipsList = await _repository.GetAllAsync();
-            List<SponsorShipDto> dtoList = new List<SponsorShipDto>();
-
-            foreach (SponsorShip sponsor in sponsorShipsList)
-            {
-                SponsorShipDto sponsorShipDto = new SponsorShipDto()
-                {
-                    Id = sponsor.Id,
-                    Name = sponsor.Name,
-                };
-
-                dtoList.Add(sponsorShipDto);
-            }
-
-            return Ok(dtoList);
+            return Ok(await _repository.GetAllAsync());
         }
 
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<SponsorShipDto>> GetByIdAsync([FromRoute] int id)
+        public async Task<ActionResult<SponsorShip>> GetByIdAsync([FromRoute] int id)
         {
             SponsorShip sponsorShip = await _repository.GetByIdAsync(id);
+
             if (sponsorShip == null)
             {
                 return NotFound();
             }
 
-            SponsorShipDto sponsorDto = new SponsorShipDto
-            {
-                Name = sponsorShip.Name,
-                Id = sponsorShip.Id,
-            };
-
-            return Ok(sponsorDto);
+            return Ok(sponsorShip);
         }
 
 
@@ -89,7 +70,7 @@ namespace AS_OOP_RacingTeams.Controllers
 
 
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<SponsorShipDto>> PutAsync([FromRoute] int id, [FromBody] SponsorShipModel model)
+        public async Task<ActionResult<SponsorShip>> PutAsync([FromRoute] int id, [FromBody] SponsorShipModel model)
         {
             SponsorShip sponsorShip = await _repository.GetByIdAsync(id);
 
@@ -99,17 +80,10 @@ namespace AS_OOP_RacingTeams.Controllers
             }
 
             sponsorShip.Name = model.Name;
-
-            SponsorShipDto dto = new SponsorShipDto
-            {
-                Id = sponsorShip.Id,
-                Name = sponsorShip.Name,
-            };
-
             _repository.Update(sponsorShip);
             await _unitOfWork.CommitAsync();
 
-            return Ok(dto);
+            return Ok(sponsorShip);
         }
     }
 }
