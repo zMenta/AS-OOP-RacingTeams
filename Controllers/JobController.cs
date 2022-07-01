@@ -21,43 +21,23 @@ namespace AS_OOP_RacingTeams.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<List<JobDto>>> GetAllAsync()
+        public async Task<ActionResult<List<Job>>> GetAllAsync()
         {
-            IList<Job> jobList = await _repository.GetAllAsync();
-
-            List<JobDto> dtoList = new List<JobDto>();
-
-            foreach (Job job in jobList)
-            {
-                JobDto jobDto = new JobDto()
-                {
-                    Id = job.Id,
-                    Name = job.Name,
-                };
-
-                dtoList.Add(jobDto);
-            }
-
-            return Ok(dtoList);
+            return Ok(await _repository.GetAllAsync());
         }
 
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<JobDto>> GetByIdAsync([FromRoute] int id)
+        public async Task<ActionResult<Job>> GetByIdAsync([FromRoute] int id)
         {
             Job job = await _repository.GetByIdAsync(id);
+            
             if (job == null)
             {
                 return NotFound();
             }
 
-            JobDto jobDto = new JobDto
-            {
-                Id = job.Id,
-                Name = job.Name,
-            };
-
-            return Ok(jobDto);
+            return Ok(job);
         }
 
 
