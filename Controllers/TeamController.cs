@@ -11,16 +11,11 @@ namespace AS_OOP_RacingTeams.Controllers
     {
         private readonly ITeamRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IPersonRepository _personRepository;
 
-        private readonly ISponsorShipRepository _sponsorRepository;
-
-        public TeamController(ITeamRepository repository, IUnitOfWork unitOfWork, IPersonRepository personRepository, ISponsorShipRepository sponsorRepository)
+        public TeamController(ITeamRepository repository, IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
-            _personRepository = personRepository;
-            _sponsorRepository = sponsorRepository;
         }
 
         [HttpGet]
@@ -85,64 +80,5 @@ namespace AS_OOP_RacingTeams.Controllers
 
             return Ok(model);
         }
-
-
-        [HttpPost("/AddSponsorToTeam")]
-        public async Task<IActionResult> PostSponsor([FromBody] AddSponsorToTeamModel model)
-        {
-
-            Team team = await _repository.GetByIdAsync(model.TeamId);
-            SponsorShip sponsor = await _sponsorRepository.GetByIdAsync(model.SponsorShipId);
-
-            if (team == null)
-            {
-                return NotFound();
-            }
-
-            if (sponsor == null)
-            {
-                return NotFound();
-            }
-
-            if (team.SponsorShips == null)
-            {
-                team.SponsorShips = new List<SponsorShip>();
-            }
-
-            team.SponsorShips.Add(sponsor);
-            _repository.Update(team);
-            await _unitOfWork.CommitAsync();
-
-            return Ok(team);
-        }
-
-        [HttpPost("/AddPersonToTeam")]
-        public async Task<IActionResult> PostPerson([FromBody] AddPersonToTeamModel model)
-        {
-            Team team = await _repository.GetByIdAsync(model.TeamId);
-            Person person = await _personRepository.GetByIdAsync(model.PersonId);
-
-            if (team == null)
-            {
-                return NotFound();
-            }
-
-            if (person == null)
-            {
-                return NotFound();
-            }
-
-            if (team.Persons == null)
-            {
-                team.Persons = new List<Person>();
-            }
-
-            team.Persons.Add(person);
-            _repository.Update(team);
-            await _unitOfWork.CommitAsync();
-
-            return Ok(team);
-        }
-
     }
 }
