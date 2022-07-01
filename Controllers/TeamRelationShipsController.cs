@@ -104,5 +104,29 @@ namespace AS_OOP_RacingTeams.Controllers
             return Ok(team);
         }
 
+        [HttpDelete("/RemoveSponsorFromTeam")]
+        public async Task<IActionResult> DeleteSponsor([FromBody] SponsorShipTeamModel model)
+        {
+            Team team = await _teamRepository.GetByIdAsync(model.TeamId);
+            SponsorShip sponsor = await _sponsorRepository.GetByIdAsync(model.SponsorShipId);
+
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            if (sponsor == null)
+            {
+                return NotFound();
+            }
+
+            team.SponsorShips.Remove(sponsor);
+            _teamRepository.Update(team);
+            await _unitOfWork.CommitAsync();
+
+            return Ok(team);
+        }
+        
+
     }
 }
