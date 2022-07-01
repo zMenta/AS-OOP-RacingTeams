@@ -3,6 +3,7 @@ using AS_OOP_RacingTeams.Domain.Interfaces;
 using AS_OOP_RacingTeams.Models;
 using AS_OOP_RacingTeams.Dto;
 using Microsoft.AspNetCore.Mvc;
+using AS_OOP_RacingTeams.Data.Context;
 
 namespace AS_OOP_RacingTeams.Controllers
 {
@@ -11,11 +12,16 @@ namespace AS_OOP_RacingTeams.Controllers
     {
         private readonly ITeamRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPersonRepository _personRepository;
 
-        public TeamController(ITeamRepository repository, IUnitOfWork unitOfWork)
+        private readonly ISponsorShipRepository _sponsorRepository;
+
+        public TeamController(ITeamRepository repository, IUnitOfWork unitOfWork, IPersonRepository personRepository, ISponsorShipRepository sponsorRepository)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _personRepository = personRepository;
+            _sponsorRepository = sponsorRepository;
         }
 
         [HttpGet]
@@ -78,7 +84,8 @@ namespace AS_OOP_RacingTeams.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<TeamModel>> PatchAsync([FromRoute] int id, [FromBody] TeamModel model){
+        public async Task<ActionResult<TeamModel>> PatchAsync([FromRoute] int id, [FromBody] TeamModel model)
+        {
             Team team = await _repository.GetByIdAsync(id);
 
             if (team == null)
@@ -95,5 +102,35 @@ namespace AS_OOP_RacingTeams.Controllers
 
             return Ok(model);
         }
+
+
+        [HttpPost("/AddSponsorToTeam")]
+        public async Task<IActionResult> PostSponsor([FromBody] AddSponsorToTeamModel model)
+        {
+
+            Team team = await _repository.GetByIdAsync(model.TeamId);
+            SponsorShip sponsor = await _sponsorRepository.GetByIdAsync(model.SponsorShipId);
+
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            if (sponsor == null)
+            {
+                return NotFound();
+            }
+
+            if (team.SponsorShips == null)
+            {
+                team.SponsorShips = new List<SponsorShip>();
+            }
+
+            team.SponsorShips.Add(sponsor);
+            // await _unitOfWork.CommitAsync();
+
+            return Ok(team);
+        }
+
     }
 }

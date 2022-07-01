@@ -26,6 +26,28 @@ namespace AS_OOP_RacingTeams.Data.Types
                 .HasColumnType("integer")
                 .HasMaxLength(14)
                 .IsRequired();
+
+            // builder.HasMany(i => i.Persons)
+            //     .WithMany(i => i.Teams)
+            //     .UsingEntity<>;
+
+            builder.HasMany(i => i.SponsorShips)
+                .WithMany(i => i.Teams);
+                // .UsingEntity<Dictionary<string, object>>(
+                //     "team_sponsor",
+                //     team => team
+                //         .HasOne<Team>()
+                //         .WithMany()
+                //         .HasForeignKey("team_id")
+                //         .HasConstraintName("FK_team_sponsor_team_id")
+                //         .OnDelete(DeleteBehavior.Cascade),
+                //     sponsor => sponsor
+                //             .HasOne<SponsorShip>()
+                //             .WithMany()
+                //             .HasForeignKey("sponsor_id")
+                //             .HasConstraintName("FK_team_sponsor_sponsor_id")
+                //             .OnDelete(DeleteBehavior.Cascade));
+
         }
     }
 }

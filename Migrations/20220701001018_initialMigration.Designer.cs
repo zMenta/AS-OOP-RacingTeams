@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AS_OOP_RacingTeams.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220630223105_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20220701001018_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
