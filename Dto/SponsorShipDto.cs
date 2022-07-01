@@ -1,5 +1,5 @@
 using AS_OOP_RacingTeams.Domain.Entities;
-using AS_OOP_RacingTeams.Dto.DtoRelations;
+
 
 namespace AS_OOP_RacingTeams.Dto
 {
@@ -7,6 +7,6 @@ namespace AS_OOP_RacingTeams.Dto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<TeamRelationsDto> Teams { get; set; }
+        
     }
 }

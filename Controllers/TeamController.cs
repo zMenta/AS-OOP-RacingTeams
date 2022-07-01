@@ -3,7 +3,6 @@ using AS_OOP_RacingTeams.Domain.Interfaces;
 using AS_OOP_RacingTeams.Models;
 using AS_OOP_RacingTeams.Dto;
 using Microsoft.AspNetCore.Mvc;
-using AS_OOP_RacingTeams.Dto.DtoRelations;
 
 namespace AS_OOP_RacingTeams.Controllers
 {
