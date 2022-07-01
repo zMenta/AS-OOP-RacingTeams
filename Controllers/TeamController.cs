@@ -25,22 +25,16 @@ namespace AS_OOP_RacingTeams.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<TeamDto>> GetByIdAsync([FromRoute] int id)
+        public async Task<ActionResult<Team>> GetByIdAsync([FromRoute] int id)
         {
             Team team = await _repository.GetByIdAsync(id);
+
             if (team == null)
             {
                 return NotFound();
             }
 
-            TeamDto teamDto = new TeamDto
-            {
-                Id = team.Id,
-                Name = team.Name,
-                Cnpj = team.Cnpj,
-            };
-
-            return Ok(teamDto);
+            return Ok(team);
         }
         [HttpPost]
         public async Task<ActionResult<TeamModel>> PostAsync([FromBody] TeamModel model)
