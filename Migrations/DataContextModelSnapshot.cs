@@ -116,34 +116,34 @@ namespace AS_OOP_RacingTeams.Migrations
                     b.ToTable("teams", (string)null);
                 });
 
-            modelBuilder.Entity("PersonTeam", b =>
+            modelBuilder.Entity("team_person", b =>
                 {
-                    b.Property<int>("PersonsId")
+                    b.Property<int>("person_id")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TeamsId")
+                    b.Property<int>("team_id")
                         .HasColumnType("integer");
 
-                    b.HasKey("PersonsId", "TeamsId");
+                    b.HasKey("person_id", "team_id");
 
-                    b.HasIndex("TeamsId");
+                    b.HasIndex("team_id");
 
-                    b.ToTable("PersonTeam");
+                    b.ToTable("team_person");
                 });
 
-            modelBuilder.Entity("SponsorShipTeam", b =>
+            modelBuilder.Entity("team_sponsor", b =>
                 {
-                    b.Property<int>("SponsorShipsId")
+                    b.Property<int>("sponsor_id")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TeamsId")
+                    b.Property<int>("team_id")
                         .HasColumnType("integer");
 
-                    b.HasKey("SponsorShipsId", "TeamsId");
+                    b.HasKey("sponsor_id", "team_id");
 
-                    b.HasIndex("TeamsId");
+                    b.HasIndex("team_id");
 
-                    b.ToTable("SponsorShipTeam");
+                    b.ToTable("team_sponsor");
                 });
 
             modelBuilder.Entity("AS_OOP_RacingTeams.Domain.Entities.Person", b =>
@@ -157,34 +157,38 @@ namespace AS_OOP_RacingTeams.Migrations
                     b.Navigation("Job");
                 });
 
-            modelBuilder.Entity("PersonTeam", b =>
+            modelBuilder.Entity("team_person", b =>
                 {
                     b.HasOne("AS_OOP_RacingTeams.Domain.Entities.Person", null)
                         .WithMany()
-                        .HasForeignKey("PersonsId")
+                        .HasForeignKey("person_id")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_team_person_person_id");
 
                     b.HasOne("AS_OOP_RacingTeams.Domain.Entities.Team", null)
                         .WithMany()
-                        .HasForeignKey("TeamsId")
+                        .HasForeignKey("team_id")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_team_person_team_id");
                 });
 
-            modelBuilder.Entity("SponsorShipTeam", b =>
+            modelBuilder.Entity("team_sponsor", b =>
                 {
                     b.HasOne("AS_OOP_RacingTeams.Domain.Entities.SponsorShip", null)
                         .WithMany()
-                        .HasForeignKey("SponsorShipsId")
+                        .HasForeignKey("sponsor_id")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_team_sponsor_sponsor_id");
 
                     b.HasOne("AS_OOP_RacingTeams.Domain.Entities.Team", null)
                         .WithMany()
-                        .HasForeignKey("TeamsId")
+                        .HasForeignKey("team_id")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_team_sponsor_team_id");
                 });
 
             modelBuilder.Entity("AS_OOP_RacingTeams.Domain.Entities.Job", b =>

@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace AS_OOP_RacingTeams.Domain.Entities
 {
     public class Person
@@ -7,6 +9,8 @@ namespace AS_OOP_RacingTeams.Domain.Entities
         public int Birth_year { get; set; }
         public Job Job { get; set; }
         public int JobId { get; set; }
+
+        [JsonIgnore]
         public IList<Team> Teams { get; set; }
     }
 }
