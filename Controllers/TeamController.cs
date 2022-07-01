@@ -45,6 +45,25 @@ namespace AS_OOP_RacingTeams.Controllers
             return Ok(dtoList);
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<TeamDto>> GetByIdAsync([FromRoute] int id)
+        {
+            Team team = await _repository.GetByIdAsync(id);
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            TeamDto teamDto = new TeamDto
+            {
+                Id = team.Id,
+                Name = team.Name,
+                Cnpj = team.Cnpj,
+            };
+
+            return Ok(teamDto);
+        }
+
         [HttpPost]
         public async Task<ActionResult<TeamModel>> PostAsync([FromBody] TeamModel model)
         {
@@ -93,7 +112,6 @@ namespace AS_OOP_RacingTeams.Controllers
                 return NotFound();
             }
 
-            // Null error in line 88
             team.Name = model.Name;
             team.Cnpj = model.Cnpj;
 
