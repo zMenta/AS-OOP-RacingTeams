@@ -36,41 +36,12 @@ namespace AS_OOP_RacingTeams.Controllers
                     Id = team.Id,
                     Name = team.Name,
                     Cnpj = team.Cnpj,
-                    
                 };
-                foreach(SponsorShip sponsorShip in team.SponsorShips)
-                {
-                    SponsorRelationsDto sponsorShipDto = new SponsorRelationsDto
-                    {
-                        Id = sponsorShip.Id,
-                        Name = sponsorShip.Name,                      
-                    };
-                }
-                
 
                 dtoList.Add(teamDto);
             }
 
             return Ok(dtoList);
-        }
-
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<TeamDto>> GetByIdAsync([FromRoute] int id)
-        {
-            Team team = await _repository.GetByIdAsync(id);
-            if (team == null)
-            {
-                return NotFound();
-            }
-
-            TeamDto teamDto = new TeamDto
-            {
-                Id = team.Id,
-                Name = team.Name,
-                Cnpj = team.Cnpj,
-            };
-
-            return Ok(teamDto);
         }
 
         [HttpPost]

@@ -34,16 +34,6 @@ namespace AS_OOP_RacingTeams.Controllers
                     JobId = person.JobId,
                 };
 
-                 foreach(Team team in person.Teams)
-                {
-                    TeamRelationsDto teamRelationsDto = new TeamRelationsDto
-                    {
-                        Id = team.Id,
-                        Name = team.Name, 
-                        Cnpj = team.Cnpj                     
-                    };
-                }
-
                 dtoList.Add(personDto);
             }
 
