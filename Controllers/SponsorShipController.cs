@@ -1,6 +1,7 @@
 using AS_OOP_RacingTeams.Domain.Entities;
 using AS_OOP_RacingTeams.Domain.Interfaces;
 using AS_OOP_RacingTeams.Dto;
+using AS_OOP_RacingTeams.Dto.DtoRelations;
 using AS_OOP_RacingTeams.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,16 @@ namespace AS_OOP_RacingTeams.Controllers
                     Id = sponsor.Id,
                     Name = sponsor.Name,
                 };
+
+                foreach (Team team in sponsor.Teams)
+                {
+                    TeamRelationsDto teamRelationsDto = new TeamRelationsDto
+                    {
+                        Id = team.Id,
+                        Name = team.Name,  
+                        Cnpj = team.Cnpj                    
+                    };
+                }
 
                 dtoList.Add(sponsorShipDto);
             }
