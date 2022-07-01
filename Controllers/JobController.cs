@@ -72,7 +72,7 @@ namespace AS_OOP_RacingTeams.Controllers
 
 
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<JobDto>> PatchAsync([FromRoute] int id, [FromBody] JobModel model)
+        public async Task<ActionResult<Job>> PatchAsync([FromRoute] int id, [FromBody] JobModel model)
         {
             Job job = await _repository.GetByIdAsync(id);
 
@@ -82,17 +82,10 @@ namespace AS_OOP_RacingTeams.Controllers
             }
 
             job.Name = model.Name;
-
-            JobDto dto = new JobDto
-            {
-                Id = job.Id,
-                Name = job.Name,
-            };
-
             _repository.Update(job);
             await _unitOfWork.CommitAsync();
 
-            return Ok(dto);
+            return Ok(job);
         }
 
     }
