@@ -133,5 +133,33 @@ namespace AS_OOP_RacingTeams.Controllers
             return Ok(team);
         }
 
+        [HttpPost("/AddPersonToTeam")]
+        public async Task<IActionResult> PostPerson([FromBody] AddPersonToTeamModel model)
+        {
+            Team team = await _repository.GetByIdAsync(model.TeamId);
+            Person person = await _personRepository.GetByIdAsync(model.PersonId);
+
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            if (team.Persons == null)
+            {
+                team.Persons = new List<Person>();
+            }
+
+            team.Persons.Add(person);
+            _repository.Update(team);
+            await _unitOfWork.CommitAsync();
+
+            return Ok(team);
+        }
+
     }
 }
