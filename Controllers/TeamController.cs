@@ -24,24 +24,9 @@ namespace AS_OOP_RacingTeams.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TeamDto>>> GetAllAsync()
+        public async Task<ActionResult<List<Team>>> GetAllAsync()
         {
-            IList<Team> teamList = await _repository.GetAllAsync();
-            List<TeamDto> dtoList = new List<TeamDto>();
-
-            foreach (Team team in teamList)
-            {
-                TeamDto teamDto = new TeamDto
-                {
-                    Id = team.Id,
-                    Name = team.Name,
-                    Cnpj = team.Cnpj,
-                };
-
-                dtoList.Add(teamDto);
-            }
-
-            return Ok(dtoList);
+            return Ok(await _repository.GetAllAsync());
         }
 
         [HttpPost]
