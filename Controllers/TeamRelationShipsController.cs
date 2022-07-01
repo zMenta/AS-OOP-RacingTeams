@@ -81,8 +81,28 @@ namespace AS_OOP_RacingTeams.Controllers
             return Ok(team);
         }
 
-        // [HttpDelete("/RemovePersonFromTeam")]
-        // public async Task<IActionResult> DeletePerson([FromBody] )
+        [HttpDelete("/RemovePersonFromTeam")]
+        public async Task<IActionResult> DeletePerson([FromBody] PersonTeamModel model)
+        {
+            Team team = await _teamRepository.GetByIdAsync(model.TeamId);
+            Person person = await _personRepository.GetByIdAsync(model.PersonId);
+
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            team.Persons.Remove(person);
+            _teamRepository.Update(team);
+            await _unitOfWork.CommitAsync();
+
+            return Ok(team);
+        }
 
     }
 }
